@@ -1,5 +1,6 @@
 class Button {
-  constructor(title, ...onClickFunction) {
+  constructor(id, title, ...onClickFunction) {
+    this.id = id;
     this.title = title;
     this.onClickFunction = onClickFunction;
   }
@@ -7,6 +8,7 @@ class Button {
   createButton() {
     const button = document.createElement('button');
     button.classList.add('button');
+    button.id = this.id;
     button.innerText = this.title;
     button.addEventListener('click', () => {
       this.onClickFunction.map(func => func());

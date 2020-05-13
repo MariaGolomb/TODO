@@ -1,5 +1,5 @@
 import Button from './Button';
-import ColumnDisplay from './ColumnDisplay';
+import { ADD_COLUMN_BUTTON_LABEL, ADD_COLUMN_BUTTON_ID } from '../constants';
 
 class TodoListDisplay {
   constructor(todoList) {
@@ -7,23 +7,8 @@ class TodoListDisplay {
   }
 
   createButton() {
-    this.addColumnButton = new Button(
-      'Add new column',
-      // this.drawColumn,
-      // this.todoList.addColumn.bind(this.todoList),
-      () => {
-        const newColumn = this.todoList.addColumn();
-        this.drawColumn(newColumn);
-      },
-    ).createButton();
+    this.addColumnButton = new Button(ADD_COLUMN_BUTTON_ID, ADD_COLUMN_BUTTON_LABEL).createButton();
     document.body.appendChild(this.addColumnButton);
-  }
-
-  drawColumns() {}
-
-  drawColumn(columnData) {
-    const column = new ColumnDisplay(columnData).drawColumn();
-    document.body.appendChild(column);
   }
 }
 

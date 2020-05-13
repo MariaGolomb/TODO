@@ -1,15 +1,18 @@
 import Button from './Button';
 
 class CardDisplay {
-  constructor(title = 'New Card') {
-    this.id = 1; // fix
-    this.title = title;
+  constructor(card) {
+    this.card = card;
   }
 
   drawCard() {
     const card = document.createElement('div');
     const textarea = document.createElement('textarea');
-    textarea.placeholder = 'Enter a title for this card...';
+    if (this.card.content) {
+      textarea.value = this.card.content;
+    } else {
+      textarea.placeholder = 'Enter a title for this card...';
+    }
     card.appendChild(textarea);
     return card;
   }

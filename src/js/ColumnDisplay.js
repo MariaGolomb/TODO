@@ -1,5 +1,5 @@
 import Button from './Button';
-import CardDisplay from './CardDisplay';
+import { ADD_CARD_BUTTON_LABEL, ADD_CARD_BUTTON_ID_PREF } from '../constants';
 
 class ColumnDisplay {
   constructor(column) {
@@ -17,7 +17,8 @@ class ColumnDisplay {
 
     const cardBlock = document.createElement('div');
 
-    const addButton = new Button('Add list', this.addCard).createButton();
+    const addButton = new Button(`${ADD_CARD_BUTTON_ID_PREF}${this.column.id}`, ADD_CARD_BUTTON_LABEL).createButton();
+
     const titleInput = document.createElement('input');
     titleInput.value = this.column.title;
     titleInput.addEventListener('change', event => {
@@ -32,13 +33,6 @@ class ColumnDisplay {
     column.appendChild(columnBottom);
     this.cardBlock = cardBlock;
     return column;
-  }
-
-  addCard() {
-    const card = new CardDisplay().drawCard();
-    document.body.appendChild(card);
-
-    // this.cardBlock.appendChild(card);
   }
 }
 
