@@ -1,8 +1,55 @@
+$buttonColor: #003333;
+$columnColor: #66CCCC;
+$columnHeader: #51a3a3;
+$backgroundColor: #99CCCC;
+
+
 * {
     margin: 0;
     padding: 0;
 }
 
 body {
-    background-color: lightgoldenrodyellow;
+    background-color: $backgroundColor;
+    max-width: 1400px;
+}
+
+.button{
+    height: 25px;
+    border: 0px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    color: $backgroundColor;
+    font-weight: bold;
+    background-color: $buttonColor;
+    padding: 5px;
+    cursor: pointer;
+
+}
+
+.column{
+    margin: 10px;
+    width: 300px;
+    border-radius: 5px;
+    background-color: $columnColor;
+}
+
+.column__header {
+    border-radius: 5px 5px 0px 0px;
+    padding: 10px;
+    background-color: $columnHeader;
+
+    & input{
+        background-color: $columnHeader;
+        border: none;
+        text-transform: uppercase;
+        color: $backgroundColor;
+        font-weight: bold;
+    }
+    
+}
+
+.column__bottom {
+    padding: 10px;
+
 }

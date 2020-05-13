@@ -6,6 +6,7 @@ class Button {
 
   createButton() {
     const button = document.createElement('button');
+    button.classList.add('button');
     button.innerText = this.title;
     button.addEventListener('click', () => {
       this.onClickFunction.map(func => func());
