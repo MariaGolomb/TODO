@@ -20,6 +20,9 @@ class ColumnDisplay {
     const addButton = new Button('Add list', this.addCard).createButton();
     const titleInput = document.createElement('input');
     titleInput.value = this.column.title;
+    titleInput.addEventListener('change', event => {
+      this.column.title = event.target.value;
+    });
 
     columnHeader.appendChild(titleInput);
     columnBottom.appendChild(addButton);
