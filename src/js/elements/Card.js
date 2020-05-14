@@ -6,6 +6,10 @@ class Card {
     this.content = content;
     this.columnId = columnId;
   }
+
+  setContent(data) {
+    this.content = data;
+  }
 }
 
 export default Card;

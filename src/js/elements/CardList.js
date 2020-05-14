@@ -17,6 +17,10 @@ class CardList {
   deleteCard(cardId) {
     this.cards = this.cards.filter(card => card.id !== cardId);
   }
+
+  findCard(id) {
+    return this.cards.find(card => card.id === id);
+  }
 }
 
 export default CardList;

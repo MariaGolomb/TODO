@@ -5,6 +5,10 @@ class Column {
     this.id = uuid();
     this.title = title;
   }
+
+  setTitle(data) {
+    this.title = data;
+  }
 }
 
 export default Column;

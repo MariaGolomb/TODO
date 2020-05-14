@@ -11,10 +11,11 @@ class TodoList {
   addColumn() {
     const column = new Column();
     this.columns.push(column);
-
-    console.log(this.columns);
-
     return column;
+  }
+
+  findColumn(id) {
+    return this.columns.find(column => column.id === id);
   }
 
   deleteColumn(id) {
