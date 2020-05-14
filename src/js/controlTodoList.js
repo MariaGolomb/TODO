@@ -3,12 +3,17 @@ import ColumnDisplay from './display/ColumnDisplay';
 import TodoListDisplay from './display/TodoListDisplay';
 import TodoList from './elements/TodoList';
 import CardList from './elements/CardList';
+import deleteItem from './display/deleteItem';
 import {
+  COLUMN_ID_PREF,
+  CARD_ID_PREF,
   ADD_COLUMN_BUTTON_ID,
   ADD_CARD_BUTTON_ID_PREF,
   CARD_BLOCK_ID_PREF,
   COLUMN_TITLE_ID_PREF,
   CARD_CONTENT_ID_PREF,
+  DELETE_CARD_BUTTON_ID_PREF,
+  DELETE_COLUMN_BUTTON_ID_PREF,
 } from '../constants';
 
 const controlTodoList = () => {
@@ -28,6 +33,18 @@ const controlTodoList = () => {
       const newCard = cardList.addCard(columnId);
       const cardDisplay = new CardDisplay(newCard).drawCard();
       document.getElementById(`${CARD_BLOCK_ID_PREF}${columnId}`).appendChild(cardDisplay);
+    }
+
+    if (event.target.id.startsWith(DELETE_COLUMN_BUTTON_ID_PREF)) {
+      const columnId = event.target.id.slice(DELETE_COLUMN_BUTTON_ID_PREF.length);
+      todoList.deleteColumn(columnId);
+      deleteItem(`${COLUMN_ID_PREF}${columnId}`);
+    }
+
+    if (event.target.id.startsWith(DELETE_CARD_BUTTON_ID_PREF)) {
+      const cardId = event.target.id.slice(DELETE_CARD_BUTTON_ID_PREF.length);
+      cardList.deleteCard(cardId);
+      deleteItem(`${CARD_ID_PREF}${cardId}`);
     }
   });
 
