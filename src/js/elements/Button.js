@@ -10,9 +10,12 @@ class Button {
     button.classList.add('button');
     button.id = this.id;
     button.innerText = this.title;
-    button.addEventListener('click', () => {
-      this.onClickFunction.map(func => func());
-    });
+    if (this.onClickFunction.length > 0) {
+      button.addEventListener('click', () => {
+        this.onClickFunction.map(func => func());
+      });
+    }
+
     return button;
   }
 }

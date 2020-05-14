@@ -2,6 +2,22 @@ $buttonColor: #003333;
 $columnColor: #66CCCC;
 $columnHeader: #51a3a3;
 $backgroundColor: #99CCCC;
+$maxWidth: 1400px;
+$bigIndent: 10px;
+$smallIndent: 5px;
+
+@mixin itemShape ($padding: $smallIndent, $margin: $smallIndent) {
+    border: none;
+    border-radius: $smallIndent;
+    padding: $padding;
+    margin: $margin;
+}
+
+@mixin buttonText ($textColor:  $backgroundColor ){
+    text-transform: uppercase;
+    font-weight: bold;
+    color: $textColor;
+}
 
 
 * {
@@ -11,45 +27,42 @@ $backgroundColor: #99CCCC;
 
 body {
     background-color: $backgroundColor;
-    max-width: 1400px;
+    max-width: $maxWidth;
 }
 
 .button{
+    @include itemShape();
+    @include buttonText();
     height: 25px;
-    border: 0px;
-    border-radius: 5px;
-    text-transform: uppercase;
-    color: $backgroundColor;
-    font-weight: bold;
     background-color: $buttonColor;
-    padding: 5px;
     cursor: pointer;
-
 }
 
 .column{
-    margin: 10px;
+    @include itemShape(0px, $bigIndent);
     width: 300px;
-    border-radius: 5px;
     background-color: $columnColor;
 }
 
 .column__header {
-    border-radius: 5px 5px 0px 0px;
-    padding: 10px;
+    border-radius: $smallIndent $smallIndent 0px 0px;
+    padding: $bigIndent;
     background-color: $columnHeader;
 
-    & input{
+    input{
+        @include buttonText($backgroundColor);
         background-color: $columnHeader;
         border: none;
-        text-transform: uppercase;
-        color: $backgroundColor;
-        font-weight: bold;
-    }
-    
+    } 
 }
 
 .column__bottom {
-    padding: 10px;
+    padding: $bigIndent;
+}
 
+.card {
+    @include itemShape($smallIndent, $smallIndent);
+    background-color: $backgroundColor;
+    color: $buttonColor;
+    max-width: 250px;
 }

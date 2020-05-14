@@ -1,5 +1,5 @@
-import Button from './Button';
-import { ADD_COLUMN_BUTTON_LABEL, ADD_COLUMN_BUTTON_ID } from '../constants';
+import Button from '../elements/Button';
+import { ADD_COLUMN_BUTTON_LABEL, ADD_COLUMN_BUTTON_ID } from '../../constants';
 
 class TodoListDisplay {
   constructor(todoList) {

@@ -1,5 +1,5 @@
-import Button from './Button';
-import { ADD_CARD_BUTTON_LABEL, ADD_CARD_BUTTON_ID_PREF } from '../constants';
+import Button from '../elements/Button';
+import { ADD_CARD_BUTTON_LABEL, ADD_CARD_BUTTON_ID_PREF, CARD_BLOCK_ID_PREF } from '../../constants';
 
 class ColumnDisplay {
   constructor(column) {
@@ -16,11 +16,13 @@ class ColumnDisplay {
     columnBottom.classList.add('column__bottom');
 
     const cardBlock = document.createElement('div');
+    cardBlock.id = `${CARD_BLOCK_ID_PREF}${this.column.id}`;
 
     const addButton = new Button(`${ADD_CARD_BUTTON_ID_PREF}${this.column.id}`, ADD_CARD_BUTTON_LABEL).createButton();
 
     const titleInput = document.createElement('input');
     titleInput.value = this.column.title;
+    // !!!
     titleInput.addEventListener('change', event => {
       this.column.title = event.target.value;
     });
