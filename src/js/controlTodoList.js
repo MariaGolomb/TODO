@@ -1,5 +1,5 @@
-import CardDisplay from './display/CardDisplay';
-import ColumnDisplay from './display/ColumnDisplay';
+import drawCard from './display/drawCard';
+import drawColumn from './display/drawColumn';
 import TodoListDisplay from './display/TodoListDisplay';
 import TodoList from './elements/TodoList';
 import CardList from './elements/CardList';
@@ -24,14 +24,14 @@ const controlTodoList = () => {
   document.addEventListener('click', event => {
     if (event.target.id === ADD_COLUMN_BUTTON_ID) {
       const newColumn = todoList.addColumn();
-      const column = new ColumnDisplay(newColumn).drawColumn();
-      document.body.appendChild(column);
+      const columnDisplay = drawColumn(newColumn);
+      document.body.appendChild(columnDisplay);
     }
 
     if (event.target.id.startsWith(ADD_CARD_BUTTON_ID_PREF)) {
       const columnId = event.target.id.slice(ADD_CARD_BUTTON_ID_PREF.length);
       const newCard = cardList.addCard(columnId);
-      const cardDisplay = new CardDisplay(newCard).drawCard();
+      const cardDisplay = drawCard(newCard);
       document.getElementById(`${CARD_BLOCK_ID_PREF}${columnId}`).appendChild(cardDisplay);
     }
 
