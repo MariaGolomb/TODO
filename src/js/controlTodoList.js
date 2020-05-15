@@ -16,14 +16,28 @@ import {
   DELETE_COLUMN_BUTTON_ID_PREF,
 } from '../constants';
 
+import {
+  setTodoListLS,
+  setCardsLS,
+  getTodoListLS,
+  getCardListLS,
+  createTodoList,
+  createCardList,
+} from './controlHelpers';
+
 const controlTodoList = () => {
-  const todoList = new TodoList();
-  const cardList = new CardList(todoList.id);
+  const todoList = createTodoList();
+  const cardList = createCardList(todoList.id);
+
+  console.log(todoList);
+  console.log(cardList);
+
   new TodoListDisplay(todoList).createButton();
 
   document.addEventListener('click', event => {
     if (event.target.id === ADD_COLUMN_BUTTON_ID) {
       const newColumn = todoList.addColumn();
+      setTodoListLS(todoList);
       const columnDisplay = drawColumn(newColumn);
       document.body.appendChild(columnDisplay);
     }
@@ -31,6 +45,7 @@ const controlTodoList = () => {
     if (event.target.id.startsWith(ADD_CARD_BUTTON_ID_PREF)) {
       const columnId = event.target.id.slice(ADD_CARD_BUTTON_ID_PREF.length);
       const newCard = cardList.addCard(columnId);
+      setCardsLS(cardList);
       const cardDisplay = drawCard(newCard);
       document.getElementById(`${CARD_BLOCK_ID_PREF}${columnId}`).appendChild(cardDisplay);
     }
@@ -38,12 +53,14 @@ const controlTodoList = () => {
     if (event.target.id.startsWith(DELETE_COLUMN_BUTTON_ID_PREF)) {
       const columnId = event.target.id.slice(DELETE_COLUMN_BUTTON_ID_PREF.length);
       todoList.deleteColumn(columnId);
+      setTodoListLS(todoList);
       deleteItem(`${COLUMN_ID_PREF}${columnId}`);
     }
 
     if (event.target.id.startsWith(DELETE_CARD_BUTTON_ID_PREF)) {
       const cardId = event.target.id.slice(DELETE_CARD_BUTTON_ID_PREF.length);
       cardList.deleteCard(cardId);
+      setCardsLS(cardList);
       deleteItem(`${CARD_ID_PREF}${cardId}`);
     }
   });
@@ -52,10 +69,12 @@ const controlTodoList = () => {
     if (event.target.id.startsWith(COLUMN_TITLE_ID_PREF)) {
       const columnId = event.target.id.slice(COLUMN_TITLE_ID_PREF.length);
       todoList.findColumn(columnId).setTitle(event.target.value);
+      setTodoListLS(todoList);
     }
     if (event.target.id.startsWith(CARD_CONTENT_ID_PREF)) {
       const cardId = event.target.id.slice(CARD_CONTENT_ID_PREF.length);
       cardList.findCard(cardId).setContent(event.target.value);
+      setCardsLS(cardList);
     }
   });
 };

@@ -1,9 +1,9 @@
 const uuid = require('uuid');
 
 class Card {
-  constructor(columnId, content) {
+  constructor(columnId) {
     this.id = uuid();
-    this.content = content;
+    this.content = undefined;
     this.columnId = columnId;
   }
 

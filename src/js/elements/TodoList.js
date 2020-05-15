@@ -3,9 +3,9 @@ import Column from './Column';
 const uuid = require('uuid');
 
 class TodoList {
-  constructor(arrOfColumns) {
+  constructor() {
     this.id = uuid();
-    this.columns = arrOfColumns || [];
+    this.columns = [];
   }
 
   addColumn() {

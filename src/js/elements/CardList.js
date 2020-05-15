@@ -2,10 +2,10 @@ import uuid from 'uuid';
 import Card from './Card';
 
 class CardList {
-  constructor(todoListId, arrOfCards) {
+  constructor(todoListId) {
     this.id = uuid();
     this.todoListId = todoListId;
-    this.cards = arrOfCards || [];
+    this.cards = [];
   }
 
   addCard(columnId) {
