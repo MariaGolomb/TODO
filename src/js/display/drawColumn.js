@@ -1,4 +1,6 @@
 import Button from '../elements/Button';
+import drawCard from './drawCard';
+
 import {
   COLUMN_ID_PREF,
   ADD_CARD_BUTTON_LABEL,
@@ -8,7 +10,7 @@ import {
   DELETE_COLUMN_BUTTON_ID_PREF,
 } from '../../constants';
 
-const drawColumn = columnData => {
+const drawColumn = (columnData, cardsData) => {
   const column = document.createElement('div');
   column.classList.add('column');
   column.id = `${COLUMN_ID_PREF}${columnData.id}`;
@@ -27,6 +29,16 @@ const drawColumn = columnData => {
   const titleInput = document.createElement('input');
   titleInput.value = columnData.title;
   titleInput.id = `${COLUMN_TITLE_ID_PREF}${columnData.id}`;
+
+  if (cardsData) {
+    cardsData.cards.forEach(card => {
+      if (card.columnId === columnData.id) {
+        cardBlock.appendChild(drawCard(card));
+        // const cardDisplay = drawCard(card);
+      }
+    });
+  }
+
   columnHeader.appendChild(titleInput);
   columnHeader.appendChild(deleteButton);
   columnBottom.appendChild(addButton);

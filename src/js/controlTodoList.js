@@ -1,8 +1,6 @@
 import drawCard from './display/drawCard';
 import drawColumn from './display/drawColumn';
-import TodoListDisplay from './display/TodoListDisplay';
-import TodoList from './elements/TodoList';
-import CardList from './elements/CardList';
+import drawTodoList from './display/drawTodoList';
 import deleteItem from './display/deleteItem';
 import {
   COLUMN_ID_PREF,
@@ -16,14 +14,7 @@ import {
   DELETE_COLUMN_BUTTON_ID_PREF,
 } from '../constants';
 
-import {
-  setTodoListLS,
-  setCardsLS,
-  getTodoListLS,
-  getCardListLS,
-  createTodoList,
-  createCardList,
-} from './controlHelpers';
+import { setTodoListLS, setCardsLS, createTodoList, createCardList } from './controlHelpers';
 
 const controlTodoList = () => {
   const todoList = createTodoList();
@@ -32,7 +23,8 @@ const controlTodoList = () => {
   console.log(todoList);
   console.log(cardList);
 
-  new TodoListDisplay(todoList).createButton();
+  const listDisplay = drawTodoList(todoList, cardList);
+  document.body.appendChild(listDisplay);
 
   document.addEventListener('click', event => {
     if (event.target.id === ADD_COLUMN_BUTTON_ID) {

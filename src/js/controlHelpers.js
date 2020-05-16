@@ -26,7 +26,7 @@ export const getCardListLS = () => getItemLS(CARD_LIST_LOCAL_STORAGE);
 const createList = (getDataLS, BaseConstructor, DataConstructor, setToLS) => {
   let list = getDataLS(); // getTodoListLS();
   if (!list) {
-    list = new ListConstructor(); // new TodoList();
+    list = new BaseConstructor(); // new TodoList();
     setToLS(list);
   } else {
     console.log('list');
