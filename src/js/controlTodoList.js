@@ -16,12 +16,28 @@ import {
 
 import { setTodoListLS, setCardsLS, createTodoList, createCardList } from './controlHelpers';
 
+const cardAutoResize = () => {
+  const hiddenDiv = document.createElement('div');
+  hiddenDiv.classList.add('card--input-div');
+  document.body.appendChild(hiddenDiv);
+
+  document.addEventListener('keyup', event => {
+    if (event.target.id.startsWith(CARD_CONTENT_ID_PREF)) {
+      const currentTextarea = event.target;
+      const content = currentTextarea.value;
+      hiddenDiv.innerText = content;
+      const newHeight = hiddenDiv.offsetHeight;
+      if (currentTextarea.offsetHeight !== newHeight) {
+        currentTextarea.style.height = `${hiddenDiv.offsetHeight}px`;
+      }
+    }
+  });
+};
+
 const controlTodoList = () => {
   const todoList = createTodoList();
   const cardList = createCardList(todoList.id);
-
-  console.log(todoList);
-  console.log(cardList);
+  cardAutoResize();
 
   const listDisplay = drawTodoList(todoList, cardList);
   document.body.appendChild(listDisplay);
@@ -31,7 +47,8 @@ const controlTodoList = () => {
       const newColumn = todoList.addColumn();
       setTodoListLS(todoList);
       const columnDisplay = drawColumn(newColumn);
-      document.body.appendChild(columnDisplay);
+      //   document.body.appendChild(columnDisplay);
+      document.getElementById(ADD_COLUMN_BUTTON_ID).before(columnDisplay);
     }
 
     if (event.target.id.startsWith(ADD_CARD_BUTTON_ID_PREF)) {

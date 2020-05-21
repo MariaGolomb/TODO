@@ -6,6 +6,7 @@ $maxWidth: 1400px;
 $bigIndent: 10px;
 $smallIndent: 5px;
 
+
 @mixin itemShape ($padding: $smallIndent, $margin: $smallIndent) {
     border: none;
     border-radius: $smallIndent;
@@ -19,6 +20,15 @@ $smallIndent: 5px;
     color: $textColor;
 }
 
+@mixin textareaStyle (){
+    width: 250px;
+    min-height: 35px;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
 
 * {
     margin: 0;
@@ -28,10 +38,14 @@ $smallIndent: 5px;
 body {
     background-color: $backgroundColor;
     max-width: $maxWidth;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
 }
 
 .button{
-    @include itemShape();
+    @include itemShape($smallIndent, $bigIndent);
     @include buttonText();
     height: 25px;
     background-color: $buttonColor;
@@ -42,31 +56,89 @@ body {
     @include itemShape(0px, $bigIndent);
     width: 300px;
     background-color: $columnColor;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
-.column__header {
+.column--header {
     border-radius: $smallIndent $smallIndent 0px 0px;
     padding: $bigIndent;
     background-color: $columnHeader;
+    display: flex;
+    justify-content: space-between;
 
     input{
         @include buttonText($backgroundColor);
         background-color: $columnHeader;
         border: none;
+        outline: none;
+        width: 85%;
     } 
 }
 
-.column__bottom {
+.column--bottom {
     padding: $bigIndent;
 }
 
+.column--cards {
+    min-height: 65px;
+}
+
 .card {
-    @include itemShape($smallIndent, $smallIndent);
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+}
+
+.card--input {
+    @include itemShape(15px, $smallIndent);
+    @include textareaStyle;
     background-color: $backgroundColor;
     color: $buttonColor;
-    max-width: 250px;
+    outline: none;
+    resize: none;
+    overflow: hidden;
+    cursor: move;
+}
+
+.card--input-div{
+    @include itemShape(15px, $smallIndent);
+    @include textareaStyle;
+    visibility: hidden;               
+    position: absolute;
+
+}
+
+.card--delete_button { 
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    padding: $smallIndent;
+    
+    color: $columnHeader;
+}
+
+.card--edit_button {
+    position: absolute;
+    bottom: 5px;
+    right: 15px;
+    color: $columnHeader;
+    padding: $smallIndent;
+
 }
 
 .deleteItem {
     display: none;
+}
+
+.hold {
+opacity: 0.5;
+}
+
+.active {
+    background-color: salmon;
+}
+
+.hideItem {
+    visibility: hidden;
 }
