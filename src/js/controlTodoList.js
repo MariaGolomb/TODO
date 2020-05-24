@@ -12,6 +12,7 @@ import {
   CARD_CONTENT_ID_PREF,
   DELETE_CARD_BUTTON_ID_PREF,
   DELETE_COLUMN_BUTTON_ID_PREF,
+  EDIT_CARD_BUTTON_ID_PREF,
 } from '../constants';
 
 import { setTodoListLS, setCardsLS, createTodoList, createCardList } from './controlHelpers';
@@ -88,4 +89,74 @@ const controlTodoList = () => {
   });
 };
 
+document.addEventListener('click', event => {
+  if (event.target.id.startsWith(EDIT_CARD_BUTTON_ID_PREF)) {
+    const id = event.target.id.slice(EDIT_CARD_BUTTON_ID_PREF.length);
+    const cardId = `${CARD_ID_PREF}${id}`;
+    const textareaId = `${CARD_CONTENT_ID_PREF}${id}`;
+    const card = document.getElementById(cardId);
+    const textarea = document.getElementById(textareaId);
+
+    if (card.classList.contains('card-isEdit')) {
+      card.classList.remove('card-isEdit');
+      textarea.readOnly = true;
+    } else {
+      card.classList.add('card-isEdit');
+      textarea.readOnly = false;
+    }
+  }
+});
+
+/*
+textarea.addEventListener('focus', () => {
+  card.classList.add('card-isActive');
+
+});
+
+card.addEventListener('mouseleave', () => {
+  card.classList.remove('card-isActive');
+
+  textarea.readOnly = true;
+});
+*/
+/*
+document.addEventListener('focus', event => {
+  console.log('1');
+  if (event.target.id.startsWith(CARD_CONTENT_ID_PREF)) {
+    console.log('2');
+    const cardId = event.target.id.slice(CARD_CONTENT_ID_PREF.length);
+    document.getElementById(`${CARD_ID_PREF}${cardId}`).classList.add('card-isActive');
+  }
+});
+
+document.addEventListener('mouseleave', event => {
+  console.log('mouseleave_d');
+  console.log(`mouseleave_d:${event.target.id}`);
+  
+  if (event.target.id.startsWith(CARD_CONTENT_ID_PREF)) {
+    const cardId = event.target.id.slice(CARD_CONTENT_ID_PREF.length);
+    document.getElementById(`${CARD_ID_PREF}${cardId}`).classList.remove('card-isActive');
+  }
+  
+});
+*/
+/*
+card.addEventListener('mouseleave', () => {
+  deleteButton.classList.add('hideItem');
+  editButton.classList.add('hideItem');
+  textarea.readOnly = true;
+});
+
+editButton.addEventListener('click', () => {
+  if (textarea.classList.contains('card--input-isNotActive')) {
+    textarea.classList.remove('card--input-isNotActive');
+    textarea.classList.add('card--input-isActive');
+    textarea.readOnly = false;
+  } else {
+    textarea.classList.remove('card--input-isActive');
+    textarea.classList.add('card--input-isNotActive');
+    textarea.readOnly = true;
+  }
+});
+*/
 export default controlTodoList;

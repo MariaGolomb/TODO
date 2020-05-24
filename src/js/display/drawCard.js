@@ -12,22 +12,26 @@ const drawCard = cardData => {
   card.id = `${CARD_ID_PREF}${cardData.id}`;
   card.draggable = true;
 
-  const deleteButton = document.createElement('i');
-  deleteButton.classList.add('fas');
-  deleteButton.classList.add('fa-times');
-  deleteButton.id = `${DELETE_CARD_BUTTON_ID_PREF}${cardData.id}`;
+  const deleteButton = document.createElement('div');
+  const deleteButtonInner = document.createElement('i');
+  deleteButtonInner.classList.add('fas');
+  deleteButtonInner.classList.add('fa-times');
+  deleteButtonInner.id = `${DELETE_CARD_BUTTON_ID_PREF}${cardData.id}`;
+  deleteButton.appendChild(deleteButtonInner);
   deleteButton.classList.add('card--delete_button');
   deleteButton.classList.add('hideItem');
 
-  const editButton = document.createElement('i');
-  editButton.classList.add('fas');
-  editButton.classList.add('fa-pen');
-  editButton.id = `${EDIT_CARD_BUTTON_ID_PREF}${cardData.id}`;
+  const editButton = document.createElement('div');
+  const editButtonInner = document.createElement('i');
+  editButtonInner.classList.add('fas');
+  editButtonInner.classList.add('fa-pen');
+  editButtonInner.id = `${EDIT_CARD_BUTTON_ID_PREF}${cardData.id}`;
+  editButton.appendChild(editButtonInner);
   editButton.classList.add('card--edit_button');
   editButton.classList.add('hideItem');
 
   const textarea = document.createElement('textarea');
-  textarea.classList.add('card--input');
+  textarea.classList.add('card--input-isNotActive');
 
   textarea.id = `${CARD_CONTENT_ID_PREF}${cardData.id}`;
 
@@ -43,17 +47,40 @@ const drawCard = cardData => {
   textarea.readOnly = 'readonly';
 
   textarea.addEventListener('focus', () => {
-    console.log(deleteButton.classList);
-    deleteButton.classList.remove('hideItem');
-    console.log(deleteButton.classList);
-
-    editButton.classList.remove('hideItem');
+    //  console.log('t_in');
+    card.classList.add('card-isActive');
+    // deleteButton.classList.remove('hideItem');
+    // editButton.classList.remove('hideItem');
   });
 
   card.addEventListener('mouseleave', () => {
-    deleteButton.classList.add('hideItem');
-    editButton.classList.add('hideItem');
+    card.classList.remove('card-isActive');
   });
+  /*
+  editButton.addEventListener('click', () => {
+    if (card.classList.contains('card-isEdit')) {
+      card.classList.remove('card-isEdit');
+      textarea.readOnly = true;
+    } else {
+      card.classList.add('card-isEdit');
+      textarea.readOnly = false;
+    }
+  });
+*/
+  /*
+  textarea.addEventListener('click', () => {
+    if (!card.classList.contains('card-isActive')) {
+
+      card.classList.add('card-isActive');
+      textarea.readOnly = false;
+    } else {
+      card.classList.remove('card-isActive');
+      // textarea.classList.remove('card--input-isActive');
+      // textarea.classList.add('card--input-isNotActive');
+      textarea.readOnly = true;
+    }
+  });
+  */
 
   card.appendChild(textarea);
   card.appendChild(deleteButton);

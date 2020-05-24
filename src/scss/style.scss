@@ -29,6 +29,15 @@ $smallIndent: 5px;
     word-wrap: break-word;
 }
 
+@mixin cardInput {
+    @include itemShape(15px, $smallIndent);
+    @include textareaStyle;
+    color: $buttonColor;
+    outline: none;
+    resize: none;
+    overflow: hidden;   
+}
+
 
 * {
     margin: 0;
@@ -85,21 +94,51 @@ body {
 
 .card {
     position: relative;
-
     display: flex;
     justify-content: center;
+        div {
+            visibility: hidden;
+        }
+        textarea {
+      //  background-color: ;
+            }
+
+    &-isActive {
+        div {
+            visibility: visible;
+        }
+    }
+
+    &-isEdit {
+        textarea {
+            background-color: $columnHeader;
+            cursor: text;
+        }
+    }
 }
 
 .card--input {
-    @include itemShape(15px, $smallIndent);
-    @include textareaStyle;
-    background-color: $backgroundColor;
-    color: $buttonColor;
-    outline: none;
-    resize: none;
-    overflow: hidden;
-    cursor: move;
+
+    &-isActive {
+        @include cardInput;
+        background-color: white;
+        cursor: text;
+    }
+
+    &-isNotActive{
+        @include cardInput;
+        cursor: move;
+        background-color: $backgroundColor;
+    }
+
+
 }
+/*
+.card--input-isActive {
+    background-color: white;
+    cursor: text;
+}
+*/
 
 .card--input-div{
     @include itemShape(15px, $smallIndent);
@@ -114,8 +153,13 @@ body {
     top: 5px;
     right: 15px;
     padding: $smallIndent;
-    
     color: $columnHeader;
+
+    svg {
+        padding: 5px;
+        background-color: red;
+        cursor: pointer;
+    }
 }
 
 .card--edit_button {
@@ -124,6 +168,12 @@ body {
     right: 15px;
     color: $columnHeader;
     padding: $smallIndent;
+
+    svg {
+        padding: 5px;
+        background-color: red;
+        cursor: pointer;
+    }
 
 }
 
