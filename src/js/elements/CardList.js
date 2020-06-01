@@ -2,14 +2,27 @@ import uuid from 'uuid';
 import Card from './Card';
 
 class CardList {
-  constructor(todoListId) {
-    this.id = uuid();
-    this.todoListId = todoListId;
+  constructor() {
+    this.id = undefined;
+    this.todoListId = undefined;
     this.cards = [];
   }
 
+  createNewList(todoListId) {
+    this.id = uuid();
+    this.todoListId = todoListId;
+    return this;
+  }
+
+  createListByData(data) {
+    this.id = data.id;
+    this.todoListId = data.todoListId;
+    this.cards = data.cards.map(card => new Card().createCardByData(card));
+    return this;
+  }
+
   addCard(columnId) {
-    const newCard = new Card(columnId);
+    const newCard = new Card().createNewCard(columnId);
     this.cards.push(newCard);
     return newCard;
   }

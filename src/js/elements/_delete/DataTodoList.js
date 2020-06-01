@@ -1,5 +1,6 @@
-import TodoList from './TodoList';
-import DataColumn from './DataColumn';
+/*
+import TodoList from '../elementsData/TodoListDatat';
+import DataColumn from '../DataColumn';
 
 class DataTodoList extends TodoList {
   constructor(data) {
@@ -10,3 +11,4 @@ class DataTodoList extends TodoList {
 }
 
 export default DataTodoList;
+*/

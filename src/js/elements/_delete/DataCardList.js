@@ -1,3 +1,4 @@
+/*
 import CardList from './CardList';
 import DataCard from './DataCard';
 
@@ -10,3 +11,4 @@ class DataCardList extends CardList {
 }
 
 export default DataCardList;
+*/

@@ -1,3 +1,4 @@
+/*
 import Column from './Column';
 
 class DataColumn extends Column {
@@ -8,3 +9,4 @@ class DataColumn extends Column {
 }
 
 export default DataColumn;
+*/

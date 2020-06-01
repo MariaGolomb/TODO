@@ -1,25 +1,24 @@
-import Column from './Column';
+import TodoListData from './elementsData/TodoListData';
+import Button from './Button';
+import { ADD_COLUMN_BUTTON_LABEL, ADD_COLUMN_BUTTON_ID } from '../../constants';
 
-const uuid = require('uuid');
+class TodoList extends TodoListData {
+  drawTodoList() {
+    const fragment = document.createDocumentFragment();
 
-class TodoList {
-  constructor() {
-    this.id = uuid();
-    this.columns = [];
-  }
+    // if (todoList) {
 
-  addColumn() {
-    const column = new Column();
-    this.columns.push(column);
-    return column;
-  }
+    this.columns.forEach(column => {
+      const columnDisplay = column.drawColumn(this.cardList); // drawColumn(column, cardList);
+      fragment.appendChild(columnDisplay);
+    });
 
-  findColumn(id) {
-    return this.columns.find(column => column.id === id);
-  }
+    // }
 
-  deleteColumn(id) {
-    this.columns = this.columns.filter(column => column.id !== id);
+    const addColumnButton = new Button(ADD_COLUMN_BUTTON_ID, ADD_COLUMN_BUTTON_LABEL).createButton();
+    addColumnButton.classList.add('add_column_button');
+    fragment.appendChild(addColumnButton);
+    return fragment;
   }
 }
 

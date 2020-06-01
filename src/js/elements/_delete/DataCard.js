@@ -1,4 +1,4 @@
-import Card from './Card';
+/* import Card from './elementsData/CardData';
 
 class DataCard extends Card {
   constructor(data) {
@@ -9,3 +9,4 @@ class DataCard extends Card {
 }
 
 export default DataCard;
+*/

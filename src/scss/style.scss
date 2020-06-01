@@ -38,6 +38,19 @@ $smallIndent: 5px;
     overflow: hidden;   
 }
 
+@mixin innerButton {
+    color: $backgroundColor;
+    background-color: $columnColor;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    height: 20px;
+    width: 20px;
+    margin: 5px;
+    cursor: pointer;
+
+}
+
 
 * {
     margin: 0;
@@ -92,20 +105,24 @@ body {
     min-height: 65px;
 }
 
+.add_column_button {
+   margin-right: 155px;
+}
+
 .card {
     position: relative;
     display: flex;
     justify-content: center;
-        div {
+      button {
             visibility: hidden;
         }
-        textarea {
-      //  background-color: ;
-            }
-
+  
     &-isActive {
-        div {
+        button {
             visibility: visible;
+        }
+        textarea {
+            cursor: pointer;
         }
     }
 
@@ -118,27 +135,9 @@ body {
 }
 
 .card--input {
-
-    &-isActive {
-        @include cardInput;
-        background-color: white;
-        cursor: text;
-    }
-
-    &-isNotActive{
-        @include cardInput;
-        cursor: move;
-        background-color: $backgroundColor;
-    }
-
-
+    @include cardInput;
+    background-color: $backgroundColor;
 }
-/*
-.card--input-isActive {
-    background-color: white;
-    cursor: text;
-}
-*/
 
 .card--input-div{
     @include itemShape(15px, $smallIndent);
@@ -149,31 +148,22 @@ body {
 }
 
 .card--delete_button { 
+    @include innerButton;
     position: absolute;
     top: 5px;
     right: 15px;
-    padding: $smallIndent;
-    color: $columnHeader;
+    cursor: pointer;
 
-    svg {
-        padding: 5px;
-        background-color: red;
-        cursor: pointer;
-    }
+   
 }
 
 .card--edit_button {
+    @include innerButton;
     position: absolute;
     bottom: 5px;
     right: 15px;
-    color: $columnHeader;
-    padding: $smallIndent;
+    cursor: pointer;
 
-    svg {
-        padding: 5px;
-        background-color: red;
-        cursor: pointer;
-    }
 
 }
 
@@ -189,6 +179,10 @@ opacity: 0.5;
     background-color: salmon;
 }
 
-.hideItem {
-    visibility: hidden;
-}
+
+@media only screen and (max-width: 639px) {
+    body {
+      align-content: center;
+      flex-direction: column;
+    }
+  }
