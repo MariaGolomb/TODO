@@ -1,6 +1,5 @@
 import ColumnData from './elementsData/ColumnData';
 import Button from './Button';
-import { setCardsLS } from '../controlHelpers';
 import Card from './Card';
 
 import {
@@ -10,7 +9,6 @@ import {
   CARD_BLOCK_ID_PREF,
   COLUMN_TITLE_ID_PREF,
   DELETE_COLUMN_BUTTON_ID_PREF,
-  CARD_ID_PREF,
 } from '../../constants';
 
 import { dragAndDropOnColumn } from './dragAndDrop';
@@ -19,6 +17,7 @@ class Column extends ColumnData {
   drawColumn(cardsData) {
     const column = document.createElement('div');
     column.classList.add('column');
+    // column.classList.add('show');
     column.id = `${COLUMN_ID_PREF}${this.id}`;
     const columnHeader = document.createElement('div');
     columnHeader.classList.add('column--header');

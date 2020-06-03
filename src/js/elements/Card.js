@@ -11,7 +11,7 @@ class Card extends CardData {
   drawCard() {
     const card = document.createElement('div');
     card.classList.add('card');
-
+    card.classList.add('card-isMove');
     card.id = `${CARD_ID_PREF}${this.id}`;
     card.draggable = true;
 
@@ -20,6 +20,7 @@ class Card extends CardData {
     deleteButtonInner.classList.add('fas');
     deleteButtonInner.classList.add('fa-times');
     deleteButton.id = `${DELETE_CARD_BUTTON_ID_PREF}${this.id}`;
+    deleteButtonInner.id = `${DELETE_CARD_BUTTON_ID_PREF}${this.id}`;
     deleteButton.appendChild(deleteButtonInner);
     deleteButton.classList.add('card--delete_button');
 
@@ -30,6 +31,8 @@ class Card extends CardData {
     editButtonInner.classList.add('fa-pen');
 
     editButton.id = `${EDIT_CARD_BUTTON_ID_PREF}${this.id}`;
+    editButtonInner.id = `${EDIT_CARD_BUTTON_ID_PREF}${this.id}`;
+
     editButton.appendChild(editButtonInner);
     editButton.classList.add('card--edit_button');
 
@@ -49,23 +52,16 @@ class Card extends CardData {
 
     textarea.readOnly = true;
 
-    textarea.addEventListener('focus', () => {
-      card.classList.add('card-isActive');
-    });
-
     card.addEventListener('mouseleave', () => {
       if (card.classList.contains('card-isEdit')) {
         card.classList.remove('card-isEdit');
+        card.classList.add('card-isMove');
         textarea.readOnly = true;
       }
 
       if (card.classList.contains('card-isActive')) {
         card.classList.remove('card-isActive');
       }
-    });
-
-    editButton.addEventListener('click', event => {
-      console.log('!');
     });
 
     dragAndDropCard(card);

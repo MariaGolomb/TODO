@@ -39,9 +39,8 @@ $smallIndent: 5px;
 }
 
 @mixin innerButton {
-    color: $backgroundColor;
-    background-color: $columnColor;
-    border-radius: 5px;
+    background-color: $backgroundColor;
+    color: $columnHeader;
     border: none;
     outline: none;
     height: 20px;
@@ -113,9 +112,27 @@ body {
     position: relative;
     display: flex;
     justify-content: center;
+
+
+
+    margin: 5px;
+
       button {
             visibility: hidden;
         }
+
+    &-isMove {
+        &:hover {
+            transform: translate(-5px, 5px);
+  
+        textarea {
+          box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  
+        }
+      }
+
+    }
+    
   
     &-isActive {
         button {
@@ -126,13 +143,29 @@ body {
         }
     }
 
-    &-isEdit {
+    &-isEdit {    ////////////////////////////////  
+
+        z-index: 10;
+        
+        top: 50%;
+        left: 50%;
+      //  transform: translate(-50%, -50%);   
+       // transform: scale(2);   
+                                 
+
         textarea {
             background-color: $columnHeader;
             cursor: text;
+            border: 2px solid $columnColor;
+        }
+
+        button {
+            color: $backgroundColor;
+            background-color: $columnHeader;
         }
     }
 }
+
 
 .card--input {
     @include cardInput;
@@ -163,8 +196,6 @@ body {
     bottom: 5px;
     right: 15px;
     cursor: pointer;
-
-
 }
 
 .deleteItem {
@@ -175,9 +206,6 @@ body {
 opacity: 0.5;
 }
 
-.active {
-    background-color: salmon;
-}
 
 
 @media only screen and (max-width: 639px) {
@@ -186,3 +214,30 @@ opacity: 0.5;
       flex-direction: column;
     }
   }
+
+  .active {
+    // transform: scale(1.2);
+    // animation: 2s active linear;
+    // background-color: red;
+
+}
+
+
+  .show {
+    opacity: 1;
+    animation: 2s show linear;
+  }
+
+  @keyframes show {
+    0% {
+      opacity: 0;
+    }
+    25% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  
