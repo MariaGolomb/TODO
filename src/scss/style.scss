@@ -217,14 +217,11 @@ opacity: 0.5;
   }
 
   .active {
-     
      border: 3px dashed $columnHeader;
      border-radius: 5px;
      background-color: $columnColor;
      transform: scale(1.1, 1.2);
-
 }
-
 
   .show {
   animation: show 250ms ease-in-out;
