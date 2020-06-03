@@ -70,7 +70,12 @@ body {
     @include buttonText();
     height: 25px;
     background-color: $buttonColor;
-    cursor: pointer;
+   
+    &:hover{
+        cursor: pointer;
+        transform: scale(1.1);
+
+    }
 }
 
 .column{
@@ -101,7 +106,8 @@ body {
 }
 
 .column--cards {
-    min-height: 65px;
+    min-height: 100px;
+     transition: transform 2s ease-in-out;
 }
 
 .add_column_button {
@@ -112,10 +118,8 @@ body {
     position: relative;
     display: flex;
     justify-content: center;
-
-
-
     margin: 5px;
+    transition: transform 250ms ease-in-out;
 
       button {
             visibility: hidden;
@@ -124,13 +128,13 @@ body {
     &-isMove {
         &:hover {
             transform: translate(-5px, 5px);
-  
+
         textarea {
           box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+          cursor: move;
   
         }
       }
-
     }
     
   
@@ -143,16 +147,11 @@ body {
         }
     }
 
-    &-isEdit {    ////////////////////////////////  
+    &-isEdit { 
 
         z-index: 10;
-        
-        top: 50%;
-        left: 50%;
-      //  transform: translate(-50%, -50%);   
-       // transform: scale(2);   
+        transform: scale(1.1);   
                                  
-
         textarea {
             background-color: $columnHeader;
             cursor: text;
@@ -185,7 +184,6 @@ body {
     position: absolute;
     top: 5px;
     right: 15px;
-    cursor: pointer;
 
    
 }
@@ -195,7 +193,6 @@ body {
     position: absolute;
     bottom: 5px;
     right: 15px;
-    cursor: pointer;
 }
 
 .deleteItem {
@@ -216,28 +213,13 @@ opacity: 0.5;
   }
 
   .active {
-    // transform: scale(1.2);
-    // animation: 2s active linear;
-    // background-color: red;
+     
+     border: 3px dashed $columnHeader;
+     border-radius: 5px;
+     background-color: $columnColor;
+     transform: scale(1.1, 1.2);
 
 }
 
-
-  .show {
-    opacity: 1;
-    animation: 2s show linear;
-  }
-
-  @keyframes show {
-    0% {
-      opacity: 0;
-    }
-    25% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
 
   

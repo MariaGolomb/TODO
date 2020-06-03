@@ -17,7 +17,6 @@ class Column extends ColumnData {
   drawColumn(cardsData) {
     const column = document.createElement('div');
     column.classList.add('column');
-    // column.classList.add('show');
     column.id = `${COLUMN_ID_PREF}${this.id}`;
     const columnHeader = document.createElement('div');
     columnHeader.classList.add('column--header');
@@ -28,7 +27,7 @@ class Column extends ColumnData {
     const cardBlock = document.createElement('div');
     cardBlock.id = `${CARD_BLOCK_ID_PREF}${this.id}`;
     cardBlock.classList.add('column--cards');
-    dragAndDropOnColumn(cardBlock, cardsData); // /
+    dragAndDropOnColumn(cardBlock, cardsData);
 
     const addButton = new Button(`${ADD_CARD_BUTTON_ID_PREF}${this.id}`, ADD_CARD_BUTTON_LABEL).createButton();
     const deleteButton = new Button(`${DELETE_COLUMN_BUTTON_ID_PREF}${this.id}`, 'X').createButton();
@@ -41,13 +40,10 @@ class Column extends ColumnData {
       cardsData.cards.forEach(card => {
         if (card.columnId === this.id) {
           const cardDisplay = new Card().createCardByData(card).drawCard();
-          // dragAndDropCard(cardDisplay);
           cardBlock.appendChild(cardDisplay);
         }
       });
     }
-
-    // this.cardBlock = cardBlock;
 
     columnHeader.appendChild(titleInput);
     columnHeader.appendChild(deleteButton);

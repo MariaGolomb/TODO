@@ -1,6 +1,5 @@
 import TodoListData from './elementsData/TodoListData';
 import Button from './Button';
-// import { ADD_COLUMN_BUTTON_LABEL, ADD_COLUMN_BUTTON_ID } from '../../constants';
 import deleteItem from '../display/deleteItem';
 import {
   COLUMN_ID_PREF,
@@ -107,7 +106,7 @@ class TodoList extends TodoListData {
         this.setCardContent(cardId, event.target.value);
       }
       if (event.target.id.startsWith(CARD_CONTENT_ID_PREF)) {
-        const hiddenDiv = document.querySelector('#div .card--input-div');
+        const hiddenDiv = document.querySelector('div.card--input-div');
         const currentTextarea = event.target;
         const content = currentTextarea.value;
         hiddenDiv.innerText = content;

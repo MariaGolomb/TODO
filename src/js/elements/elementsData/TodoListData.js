@@ -9,6 +9,7 @@ class TodoListData {
     this.id = undefined;
     this.columns = [];
     this.cardList = undefined;
+    this.userId = undefined;
   }
 
   createTodoList() {
