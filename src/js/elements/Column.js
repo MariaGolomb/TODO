@@ -17,6 +17,7 @@ class Column extends ColumnData {
   drawColumn(cardsData) {
     const column = document.createElement('div');
     column.classList.add('column');
+    column.classList.add('show');
     column.id = `${COLUMN_ID_PREF}${this.id}`;
     const columnHeader = document.createElement('div');
     columnHeader.classList.add('column--header');

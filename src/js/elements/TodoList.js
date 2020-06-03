@@ -29,8 +29,10 @@ class TodoList extends TodoListData {
 
     const addColumnButton = new Button(ADD_COLUMN_BUTTON_ID, ADD_COLUMN_BUTTON_LABEL).createButton();
     addColumnButton.classList.add('add_column_button');
+    addColumnButton.classList.add('show');
     fragment.appendChild(addColumnButton);
     this.addEventListeners();
+
     return fragment;
   }
 

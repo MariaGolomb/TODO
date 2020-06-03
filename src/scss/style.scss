@@ -47,7 +47,6 @@ $smallIndent: 5px;
     width: 20px;
     margin: 5px;
     cursor: pointer;
-
 }
 
 
@@ -70,6 +69,7 @@ body {
     @include buttonText();
     height: 25px;
     background-color: $buttonColor;
+    outline: none;
    
     &:hover{
         cursor: pointer;
@@ -82,7 +82,7 @@ body {
     @include itemShape(0px, $bigIndent);
     width: 300px;
     background-color: $columnColor;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);     
 }
 
 .column--header {
@@ -107,11 +107,14 @@ body {
 
 .column--cards {
     min-height: 100px;
-     transition: transform 2s ease-in-out;
+    transition: transform 2s ease-in-out;
 }
 
 .add_column_button {
    margin-right: 155px;
+   &:active{
+    animation: show 250ms ease-in-out;
+   }
 }
 
 .card {
@@ -140,7 +143,8 @@ body {
   
     &-isActive {
         button {
-            visibility: visible;
+             visibility: visible;
+
         }
         textarea {
             cursor: pointer;
@@ -221,5 +225,25 @@ opacity: 0.5;
 
 }
 
+
+  .show {
+  animation: show 250ms ease-in-out;
+  }
+
+  @keyframes show {
+    0% {
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.25;
+    }
+    50% {
+      opacity: 0.5;     
+    }
+
+    100% {
+        opacity: 1;
+    }
+  }
 
   
