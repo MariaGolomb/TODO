@@ -1,8 +1,7 @@
 import Column from '../Column';
 import CardList from '../CardList';
-import { getTodoListLS, getCardListLS, setTodoListLS, setCardsLS } from '../../controlHelpers';
-
-const uuid = require('uuid');
+import { formatData } from '../../helpers/formatResponseData';
+import { URL, TODO__LIST_ID_LOCAL_STORAGE } from '../../../constants';
 
 class TodoListData {
   constructor() {
@@ -12,20 +11,43 @@ class TodoListData {
     this.userId = undefined;
   }
 
-  createTodoList() {
-    const todoListData = getTodoListLS();
-    const cardListData = getCardListLS();
-    if (todoListData) {
-      return this.createListByData(todoListData, cardListData);
+  async createTodoList() {
+    const id = localStorage.getItem(TODO__LIST_ID_LOCAL_STORAGE);
+
+    if (id) {
+      try {
+        const response = await fetch(`${URL}/list/${id}`);
+        if (response.ok) {
+          const responseData = await response.json();
+          const data = formatData(responseData);
+          const { todoList } = data;
+          const { cardList } = data;
+          return this.createListByData(todoList, cardList);
+        }
+      } catch (error) {
+        console.log(error);
+        return this.createNewList();
+      }
     }
     return this.createNewList();
   }
 
-  createNewList() {
-    this.id = uuid();
-    this.cardList = new CardList().createNewList(this.id);
-    setTodoListLS(this);
-    setCardsLS(this.cardList);
+  async createNewList() {
+    try {
+      const response = await fetch(`${URL}/list`, { method: 'POST' });
+      if (response.ok) {
+        const updatedData = await response.json();
+        const data = formatData(updatedData);
+        const { todoList } = data;
+        const { cardList } = data;
+        this.createListByData(todoList, cardList);
+        localStorage.setItem(TODO__LIST_ID_LOCAL_STORAGE, this.id);
+        return this;
+      }
+      return false;
+    } catch (error) {
+      //
+    }
     return this;
   }
 
@@ -36,10 +58,9 @@ class TodoListData {
     return this;
   }
 
-  addColumn() {
-    const column = new Column().createNewColumn();
+  async addColumn() {
+    const column = await new Column().createNewColumn(this);
     this.columns.push(column);
-    setTodoListLS(this);
     return column;
   }
 
@@ -47,33 +68,41 @@ class TodoListData {
     return this.columns.find(column => column.id === id);
   }
 
-  deleteColumn(id) {
-    this.columns = this.columns.filter(column => column.id !== id);
-    this.cardList.cards = this.cardList.cards.filter(card => card.columnId !== id);
-    setTodoListLS({ id: this.id, columns: this.columns });
-    setCardsLS(this.cardList);
+  async deleteColumn(id) {
+    try {
+      const response = await fetch(`${URL}/list/${this.id}/column/${id}`, { method: 'DELETE' });
+      if (response.ok) {
+        this.columns = this.columns.filter(column => column.id !== id);
+        this.cardList.cards = this.cardList.cards.filter(card => card.columnId !== id);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  addCard(columnId) {
-    const newCard = this.cardList.addCard(columnId);
-    setTodoListLS({ id: this.id, columns: this.columns });
-    setCardsLS(this.cardList);
+  async addCard(columnId) {
+    const newCard = await this.cardList.addCard(columnId);
     return newCard;
   }
 
   deleteCard(cardId) {
     this.cardList.deleteCard(cardId);
-    setCardsLS(this.cardList);
   }
 
   setCardContent(cardId, content) {
     this.cardList.findCard(cardId).setContent(content);
-    setCardsLS(this.cardList);
   }
 
   setColumnTitle(columnId, content) {
     this.findColumn(columnId).setTitle(content);
-    setTodoListLS({ id: this.id, columns: this.columns });
+  }
+
+  async setCardContentBD(cardId) {
+    await this.cardList.findCard(cardId).updateCardBD(this.id);
+  }
+
+  async setColumnTitleDB(columnId) {
+    await this.findColumn(columnId).setTitleDB(this.id);
   }
 }
 

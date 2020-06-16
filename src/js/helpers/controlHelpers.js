@@ -1,4 +1,4 @@
-import { TODO_LIST_LOCAL_STORAGE, CARD_LIST_LOCAL_STORAGE } from '../constants';
+import { TODO_LIST_LOCAL_STORAGE, CARD_LIST_LOCAL_STORAGE } from '../../constants';
 
 export const setTodoListLS = todoList => {
   localStorage.setItem(TODO_LIST_LOCAL_STORAGE, JSON.stringify(todoList));

@@ -37,16 +37,17 @@ class TodoList extends TodoListData {
   }
 
   addEventListeners() {
-    document.addEventListener('click', event => {
+    document.addEventListener('click', async event => {
       if (event.target.id === ADD_COLUMN_BUTTON_ID) {
-        const newColumn = this.addColumn();
+        const newColumn = await this.addColumn();
         const columnDisplay = newColumn.drawColumn();
         document.getElementById(ADD_COLUMN_BUTTON_ID).before(columnDisplay);
       }
 
       if (event.target.id.startsWith(ADD_CARD_BUTTON_ID_PREF)) {
         const columnId = event.target.id.slice(ADD_CARD_BUTTON_ID_PREF.length);
-        const newCard = this.addCard(columnId);
+        const newCard = await this.addCard(columnId);
+
         const cardDisplay = newCard.drawCard();
         document.getElementById(`${CARD_BLOCK_ID_PREF}${columnId}`).appendChild(cardDisplay);
       }
@@ -83,6 +84,7 @@ class TodoList extends TodoListData {
           card.classList.remove('card-isEdit');
           card.classList.add('card-isMove');
           textarea.readOnly = true;
+          await this.setCardContentBD(id);
         } else {
           card.classList.remove('card-isMove');
           card.classList.add('card-isEdit');
@@ -116,6 +118,20 @@ class TodoList extends TodoListData {
         if (currentTextarea.offsetHeight !== newHeight) {
           currentTextarea.style.height = `${hiddenDiv.offsetHeight}px`;
         }
+      }
+    });
+
+    document.addEventListener('focusin', event => {
+      if (event.target.id.startsWith(COLUMN_TITLE_ID_PREF)) {
+        event.target.classList.add('inputIsActive');
+      }
+    });
+
+    document.addEventListener('focusout', async event => {
+      if (event.target.id.startsWith(COLUMN_TITLE_ID_PREF)) {
+        const columnId = event.target.id.slice(COLUMN_TITLE_ID_PREF.length);
+        await this.setColumnTitleDB(columnId);
+        event.target.classList.remove('inputIsActive');
       }
     });
   }

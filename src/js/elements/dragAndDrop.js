@@ -1,5 +1,3 @@
-import { setCardsLS } from '../controlHelpers';
-
 import { CARD_BLOCK_ID_PREF, CARD_ID_PREF } from '../../constants';
 
 let draggedCard;
@@ -32,18 +30,20 @@ export const dragAndDropOnColumn = (cardBlock, cardsData) => {
     this.classList.remove('active');
   }
 
-  function updateCards(draggedCurdId, columnId) {
+  async function updateCards(draggedCurdId, columnId) {
     const arrOfCards = cardsData.cards;
-    arrOfCards.find(card => card.id === draggedCurdId).columnId = columnId;
-    setCardsLS(cardsData);
+    const { todoListId } = cardsData;
+    const cardToUpdate = arrOfCards.find(card => card.id === draggedCurdId);
+    cardToUpdate.columnId = columnId;
+    await cardToUpdate.updateCardBD(todoListId);
   }
 
-  function dragDrop() {
+  async function dragDrop() {
     this.appendChild(draggedCard);
     this.classList.remove('active');
     const draggedCurdId = draggedCard.id.slice(CARD_ID_PREF.length);
     const columnId = this.id.slice(CARD_BLOCK_ID_PREF.length);
-    updateCards(draggedCurdId, columnId);
+    await updateCards(draggedCurdId, columnId);
   }
 
   cardBlock.addEventListener('dragover', dragOver);

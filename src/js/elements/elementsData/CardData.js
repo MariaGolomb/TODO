@@ -1,4 +1,5 @@
-const uuid = require('uuid');
+import { URL } from '../../../constants';
+import { formatCardList } from '../../helpers/formatResponseData';
 
 class CardData {
   constructor() {
@@ -7,10 +8,30 @@ class CardData {
     this.columnId = undefined;
   }
 
-  createNewCard(columnId) {
-    this.id = uuid();
-    this.columnId = columnId;
-    return this;
+  async createNewCard(listId, columnId) {
+    try {
+      const body = { columnId, content: this.content };
+      const toSend = JSON.stringify(body);
+      const response = await fetch(`${URL}/list/${listId}/card`, {
+        method: 'POST',
+        headers: new Headers({
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }),
+        body: toSend,
+      });
+      if (response.ok) {
+        let data = await response.json();
+        data = formatCardList(data);
+        const column = data.cards[data.cards.length - 1];
+        this.id = column.id;
+        this.columnId = column.columnId;
+
+        return this;
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   createCardByData(data) {
@@ -22,6 +43,28 @@ class CardData {
 
   setContent(data) {
     this.content = data;
+  }
+
+  async updateCardBD(todoListId) {
+    try {
+      const { id: _id, content, columnId } = this;
+
+      const toSend = JSON.stringify({ _id, content, columnId });
+      const response = await fetch(`${URL}/list/${todoListId}/card`, {
+        method: 'PUT',
+        headers: new Headers({
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }),
+        body: toSend,
+      });
+      if (response.ok) {
+        // const data = await response.json();
+        return true;
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 

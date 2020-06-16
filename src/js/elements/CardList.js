@@ -1,5 +1,5 @@
-import uuid from 'uuid';
 import Card from './Card';
+import { URL } from '../../constants';
 
 class CardList {
   constructor() {
@@ -9,7 +9,6 @@ class CardList {
   }
 
   createNewList(todoListId) {
-    this.id = uuid();
     this.todoListId = todoListId;
     return this;
   }
@@ -21,14 +20,21 @@ class CardList {
     return this;
   }
 
-  addCard(columnId) {
-    const newCard = new Card().createNewCard(columnId);
+  async addCard(columnId) {
+    const newCard = await new Card().createNewCard(this.todoListId, columnId);
     this.cards.push(newCard);
     return newCard;
   }
 
-  deleteCard(cardId) {
-    this.cards = this.cards.filter(card => card.id !== cardId);
+  async deleteCard(cardId) {
+    try {
+      const response = await fetch(`${URL}/list/${this.todoListId}/card/${cardId}`, { method: 'DELETE' });
+      if (response.ok) {
+        this.cards = this.cards.filter(card => card.id !== cardId);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   findCard(id) {

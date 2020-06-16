@@ -1,7 +1,7 @@
 import TodoList from './elements/TodoList';
 
-const controlTodoList = () => {
-  const todoList = new TodoList().createTodoList();
+const controlTodoList = async () => {
+  const todoList = await new TodoList().createTodoList();
   const listDisplay = todoList.drawTodoList();
   document.body.appendChild(listDisplay);
 };
