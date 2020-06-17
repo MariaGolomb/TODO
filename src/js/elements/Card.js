@@ -52,6 +52,13 @@ class Card extends CardData {
 
     textarea.readOnly = true;
 
+    card.addEventListener('mouseleave', () => {
+  
+      if (card.classList.contains('card-isActive')) {
+        card.classList.remove('card-isActive');
+      }
+    });
+
     dragAndDropCard(card);
 
     card.appendChild(textarea);
