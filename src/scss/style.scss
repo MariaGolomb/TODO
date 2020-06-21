@@ -49,6 +49,12 @@ $smallIndent: 5px;
     cursor: pointer;
 }
 
+@mixin loaderInner {
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
 
 * {
     margin: 0;
@@ -254,4 +260,52 @@ input.inputIsActive {
     }
   }
 
+  .loader_box{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 3;
+    background-color: $backgroundColor;
+
+  }
+
+  .loader{
+      height: 100px;
+      width: 100px;
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+  }
+
+  .loader--blockToRight{
+    @include loaderInner();
+    opacity: 0.8;
+    box-shadow: inset 0 10px 0 $buttonColor, inset 10px 0 0 $columnHeader, inset 0 -10px 0 $buttonColor, inset -10px 0 0 $columnHeader;
+    animation: rotateToRight 3s linear infinite;
+  }
+
+  .loader--blockToLeft{
+    @include loaderInner();
+    opacity: 0.5;
+    box-shadow: inset 0 10px 0 $columnHeader, inset 10px 0 0 $buttonColor, inset 0 -10px 0 $columnHeader, inset -10px 0 0 $columnColor;
+    animation: rotateToLeft 3s linear infinite;
+  }
+
+  .hide_loader{
+      display: none;
+  }
   
+@keyframes rotateToRight {
+    0% {transform: rotateZ(0deg) scaleX(1) scaleY(1)}
+    50% {transform: rotateZ(180deg) scaleX(0.75) scaleY(0.65) }
+    100% {transform: rotateZ(360deg) scaleX(1) scaleY(1)}
+}
+
+@keyframes rotateToLeft {
+    0% {transform: rotateZ(0deg) scaleX(1) scaleY(1) }
+    50% {transform: rotateZ(-180deg) scaleX(0.65) scaleY(0.75)}
+    100% {transform: rotateZ(-360deg) scaleX(1) scaleY(1) }
+}
