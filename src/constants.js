@@ -15,4 +15,4 @@ export const CARD_BLOCK_ID_PREF = 'crdBlck_';
 export const COLUMN_TITLE_ID_PREF = 'clmT_';
 export const CARD_CONTENT_ID_PREF = 'cnt_';
 
-export const URL = 'http://localhost:4000';
+export const URL =  'https://cryptic-earth-62470.herokuapp.com'; // 'http://localhost:8000';
